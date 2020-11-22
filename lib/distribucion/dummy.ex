@@ -15,7 +15,8 @@ defmodule Distribucion.Dummy do
   end
 
   @impl true
-  def handle_call(:ping, _from, _payload) do
+  def handle_call(:ping, from, _payload) do
+    IO.puts "Received ping from #{inspect from}"
     {:reply, "pong", nil}
   end
 end

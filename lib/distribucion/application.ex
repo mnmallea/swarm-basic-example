@@ -7,14 +7,15 @@ defmodule Distribucion.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: Distribucion.Worker.start_link(arg)
-      # {Distribucion.Worker, arg}
+    topologies = [
+      example: [
+        strategy: Cluster.Strategy.Gossip
+      ]
     ]
-
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Distribucion.Supervisor]
-    Supervisor.start_link(children, opts)
+    children = [
+      {Cluster.Supervisor, [topologies, [name: Distribucion.ClusterSupervisor]]},
+      # ..other children..
+    ]
+    Supervisor.start_link(children, strategy: :one_for_one, name: Distribucion.Supervisor)
   end
 end

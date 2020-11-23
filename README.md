@@ -2,6 +2,10 @@
 
 **TODO: Add description**
 
+```elixir
+{ :ok, pid } = Distribucion.DummyWorker.create(:nombre)
+```
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed

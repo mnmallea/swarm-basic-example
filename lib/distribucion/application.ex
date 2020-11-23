@@ -12,10 +12,12 @@ defmodule Distribucion.Application do
         strategy: Cluster.Strategy.Gossip
       ]
     ]
+
     children = [
       {Cluster.Supervisor, [topologies, [name: Distribucion.ClusterSupervisor]]},
-      # ..other children..
+      Distribucion.Supervisor
     ]
-    Supervisor.start_link(children, strategy: :one_for_one, name: Distribucion.Supervisor)
+
+    Supervisor.start_link(children, strategy: :one_for_one, name: ApplicationSupervisor)
   end
 end

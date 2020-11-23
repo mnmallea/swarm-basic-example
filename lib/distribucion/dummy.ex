@@ -35,21 +35,8 @@ defmodule Distribucion.DummyWorker do
   end
 
   @impl true
-  def handle_call({:prepend, element}, from, state) do
+  def handle_call({:prepend, element}, _from, state) do
     {:reply, :ok, [element | state]}
-  end
-
-  @impl true
-  def handle_call(:get_all, from, state) do
-    {:reply, state, state}
-  end
-
-  def handle_call({:swarm, :begin_handoff}, _from, state) do
-    {:reply, :restart, state}
-  end
-
-  def handle_info({:swarm, :die}, state) do
-    {:stop, :shutdown, state}
   end
 
   defp via_swarm(name) do
